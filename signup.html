@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - NextGen Devops</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-white/10 backdrop-blur-md border-b border-white/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <i data-lucide="graduation-cap" class="h-8 w-8 text-white"></i>
+          <span class="ml-2 text-xl font-bold text-white">NextGen Devops</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="text-white/80">Already have an account?</span>
+          <button onclick="window.location.href='index.html'" class="text-white hover:text-blue-200 font-medium">Back to Home</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <!-- Header -->
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-white mb-2">Join NextGen Devops</h2>
+        <p class="text-blue-100">Connect with your alumni network and unlock opportunities</p>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div class="bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8">
+        <form id="signupForm" class="space-y-6">
+          <!-- User Type Selection -->
+          <div class="space-y-4">
+            <label class="block text-sm font-medium text-gray-700">I am a:</label>
+            <div class="grid grid-cols-2 gap-4">
+              <label class="relative">
+                <input type="radio" name="userType" value="student" class="sr-only peer">
+                <div class="flex flex-col items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:border-blue-300 transition-all">
+                  <i data-lucide="graduation-cap" class="h-8 w-8 text-gray-600 peer-checked:text-blue-600 mb-2"></i>
+                  <span class="font-medium text-gray-700 peer-checked:text-blue-700">Student</span>
+                </div>
+              </label>
+              <label class="relative">
+                <input type="radio" name="userType" value="alumni" class="sr-only peer">
+                <div class="flex flex-col items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-green-500 peer-checked:bg-green-50 hover:border-green-300 transition-all">
+                  <i data-lucide="briefcase" class="h-8 w-8 text-gray-600 peer-checked:text-green-600 mb-2"></i>
+                  <span class="font-medium text-gray-700 peer-checked:text-green-700">Alumni</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Basic Information -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+              <input type="text" id="firstName" name="firstName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <div>
+              <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+              <input type="text" id="lastName" name="lastName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+            <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <p id="emailError" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email address</p>
+          </div>
+
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <div class="relative">
+              <input type="password" id="password" name="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10">
+              <button type="button" onclick="togglePassword('password')" class="absolute inset-y-0 right-0 pr-3 flex items-center" title="Toggle password visibility">
+                <i data-lucide="eye" class="h-5 w-5 text-gray-400"></i>
+              </button>
+            </div>
+            <p id="passwordError" class="text-red-500 text-xs mt-1 hidden">Password must be at least 8 characters long</p>
+          </div>
+
+          <div>
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+            <div class="relative">
+              <input type="password" id="confirmPassword" name="confirmPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10">
+              <button type="button" onclick="togglePassword('confirmPassword')" class="absolute inset-y-0 right-0 pr-3 flex items-center" title="Toggle password visibility">
+                <i data-lucide="eye" class="h-5 w-5 text-gray-400"></i>
+              </button>
+            </div>
+            <p id="confirmPasswordError" class="text-red-500 text-xs mt-1 hidden">Passwords do not match</p>
+          </div>
+
+          <!-- Dynamic Fields Based on User Type -->
+          <div id="studentFields" class="space-y-4 hidden">
+            <div>
+              <label for="university" class="block text-sm font-medium text-gray-700 mb-1">University/College</label>
+              <input type="text" id="university" name="university" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="degree" class="block text-sm font-medium text-gray-700 mb-1">Degree</label>
+                <select id="degree" name="degree" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="">Select Degree</option>
+                  <option value="bachelor">Bachelor's</option>
+                  <option value="master">Master's</option>
+                  <option value="phd">PhD</option>
+                  <option value="diploma">Diploma</option>
+                </select>
+              </div>
+              <div>
+                <label for="graduationYear" class="block text-sm font-medium text-gray-700 mb-1">Expected Graduation</label>
+                <select id="graduationYear" name="graduationYear" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="">Select Year</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="major" class="block text-sm font-medium text-gray-700 mb-1">Field of Study</label>
+              <input type="text" id="major" name="major" placeholder="e.g., Computer Science, Business Administration" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+
+            <div>
+              <label for="careerInterests" class="block text-sm font-medium text-gray-700 mb-1">Career Interests</label>
+              <textarea id="careerInterests" name="careerInterests" rows="3" placeholder="What career paths are you interested in?" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+            </div>
+          </div>
+
+          <div id="alumniFields" class="space-y-4 hidden">
+            <div>
+              <label for="alumniUniversity" class="block text-sm font-medium text-gray-700 mb-1">University/College (Alma Mater)</label>
+              <input type="text" id="alumniUniversity" name="alumniUniversity" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="alumniDegree" class="block text-sm font-medium text-gray-700 mb-1">Degree</label>
+                <select id="alumniDegree" name="alumniDegree" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                  <option value="">Select Degree</option>
+                  <option value="bachelor">Bachelor's</option>
+                  <option value="master">Master's</option>
+                  <option value="phd">PhD</option>
+                  <option value="diploma">Diploma</option>
+                </select>
+              </div>
+              <div>
+                <label for="alumniGraduationYear" class="block text-sm font-medium text-gray-700 mb-1">Graduation Year</label>
+                <select id="alumniGraduationYear" name="alumniGraduationYear" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                  <option value="">Select Year</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                  <option value="2020">2020</option>
+                  <option value="2019">2019</option>
+                  <option value="2018">2018</option>
+                  <option value="2017">2017</option>
+                  <option value="2016">2016</option>
+                  <option value="2015">2015</option>
+                  <option value="other">Before 2015</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="currentCompany" class="block text-sm font-medium text-gray-700 mb-1">Current Company</label>
+              <input type="text" id="currentCompany" name="currentCompany" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+            </div>
+
+            <div>
+              <label for="jobTitle" class="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+              <input type="text" id="jobTitle" name="jobTitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+            </div>
+
+            <div>
+              <label for="experience" class="block text-sm font-medium text-gray-700 mb-1">Years of Experience</label>
+              <select id="experience" name="experience" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <option value="">Select Experience</option>
+                <option value="0-1">0-1 years</option>
+                <option value="2-3">2-3 years</option>
+                <option value="4-5">4-5 years</option>
+                <option value="6-10">6-10 years</option>
+                <option value="10+">10+ years</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="expertise" class="block text-sm font-medium text-gray-700 mb-1">Areas of Expertise</label>
+              <textarea id="expertise" name="expertise" rows="3" placeholder="What areas can you mentor students in?" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"></textarea>
+            </div>
+
+            <div>
+              <label class="flex items-center">
+                <input type="checkbox" id="willingToMentor" name="willingToMentor" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
+                <span class="ml-2 text-sm text-gray-700">I'm willing to mentor students</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Terms and Privacy -->
+          <div class="space-y-3">
+            <label class="flex items-start">
+              <input type="checkbox" id="agreeTerms" name="agreeTerms" required class="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+              <span class="ml-2 text-sm text-gray-700">
+                I agree to the <button type="button" onclick="showTerms()" class="text-blue-600 hover:text-blue-700 underline">Terms of Service</button> and <button type="button" onclick="showPrivacy()" class="text-blue-600 hover:text-blue-700 underline">Privacy Policy</button>
+              </span>
+            </label>
+
+            <label class="flex items-start">
+              <input type="checkbox" id="agreeEmails" name="agreeEmails" class="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+              <span class="ml-2 text-sm text-gray-700">
+                I want to receive updates about events, opportunities, and platform news
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transform hover:-translate-y-1 transition-all duration-300 shadow-lg">
+            Create Account
+          </button>
+        </form>
+
+        <!-- Login Links -->
+        <div class="mt-6 text-center space-y-2">
+          <p class="text-gray-600 text-sm">Already have an account?</p>
+          <div class="flex space-x-4 justify-center">
+            <button onclick="window.location.href='student.html'" class="text-blue-600 hover:text-blue-700 font-medium text-sm">Student Login</button>
+            <span class="text-gray-400">|</span>
+            <button onclick="window.location.href='alumni.html'" class="text-green-600 hover:text-green-700 font-medium text-sm">Alumni Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="signup.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
